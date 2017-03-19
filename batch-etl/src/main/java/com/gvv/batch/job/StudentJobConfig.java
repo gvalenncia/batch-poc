@@ -3,6 +3,7 @@ package com.gvv.batch.job;
 import com.gvv.batch.listener.StudentJobCompletionListener;
 import com.gvv.batch.model.Student;
 import com.gvv.batch.processor.StudentItemProcessor;
+import com.gvv.batch.writer.StudentItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -28,14 +29,19 @@ public class StudentJobConfig {
     private static final String EXTRACT_STUDENTS_QUERY = "SELECT * FROM tbl_student";
 
     @Autowired
-    public JobBuilderFactory jobBuilderFactory;
+    private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    public DataSource dataSource;
+    private DataSource dataSource;
 
+    @Autowired
+    private StudentItemProcessor processor;
+
+    @Autowired
+    private StudentItemWriter writer;
 
     @Bean
     public Job studentETLJob(StudentJobCompletionListener listener) {
@@ -51,7 +57,8 @@ public class StudentJobConfig {
         return stepBuilderFactory.get("extract-step")
                 .<Student, Student> chunk(10)
                 .reader(studentItemReader())
-                .processor(studentItemProcessor())
+                .processor(processor)
+                .writer(writer)
                 .build();
     }
 
@@ -64,10 +71,5 @@ public class StudentJobConfig {
         databaseReader.setRowMapper(new BeanPropertyRowMapper<>(Student.class));
 
         return databaseReader;
-    }
-
-    @Bean
-    public StudentItemProcessor studentItemProcessor() {
-        return new StudentItemProcessor();
     }
 }

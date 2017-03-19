@@ -18,7 +18,8 @@
 
 	<properties>
 		<mysql.version>5.1.21</mysql.version>
-		<jackson.version>2.4.4</jackson.version>
+		<jackson.version>2.5.3</jackson.version>
+        <spring-batch-test.version>2.2.0.RELEASE</spring-batch-test.version>
 	</properties>
 
 	<dependencyManagement>
@@ -33,6 +34,21 @@
 				<artifactId>jackson-core</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
+            <dependency>
+                <groupId>org.springframework.batch</groupId>
+                <artifactId>spring-batch-test</artifactId>
+                <version>${spring-batch-test.version}</version>
+            </dependency>
 		</dependencies>
 	</dependencyManagement>
 
