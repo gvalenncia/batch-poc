@@ -29,19 +29,19 @@ public class StudentJobConfig {
     private static final String EXTRACT_STUDENTS_QUERY = "SELECT * FROM tbl_student";
 
     @Autowired
-    public JobBuilderFactory jobBuilderFactory;
+    private JobBuilderFactory jobBuilderFactory;
 
     @Autowired
-    public StepBuilderFactory stepBuilderFactory;
+    private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    public DataSource dataSource;
+    private DataSource dataSource;
 
     @Autowired
-    public StudentItemProcessor processor;
+    private StudentItemProcessor processor;
 
     @Autowired
-    public StudentItemWriter writer;
+    private StudentItemWriter writer;
 
     @Bean
     public Job studentETLJob(StudentJobCompletionListener listener) {

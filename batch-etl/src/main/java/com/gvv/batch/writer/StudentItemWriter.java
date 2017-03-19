@@ -22,8 +22,13 @@ public class StudentItemWriter implements ItemWriter<Student> {
     @Override
     public void write(List<? extends Student> students) throws Exception {
         LOGGER.info("+++++writing reesul+++++++");
-        File file = new File("Students.json");
+        File file = new File("workspace/Students.json");
+
+        if(!file.getParentFile().exists()){
+            file.getParentFile().mkdir();
+        }
         file.createNewFile();
+
         FileWriter writer = new FileWriter(file);
 
         ObjectMapper mapper = new ObjectMapper();
