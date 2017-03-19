@@ -3,7 +3,7 @@ package com.gvv.batch.job;
 import com.gvv.batch.listener.StudentJobCompletionListener;
 import com.gvv.batch.model.Student;
 import com.gvv.batch.processor.StudentItemProcessor;
-import com.gvv.batch.writter.StudentItemWritter;
+import com.gvv.batch.writer.StudentItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -37,6 +37,11 @@ public class StudentJobConfig {
     @Autowired
     public DataSource dataSource;
 
+    @Autowired
+    public StudentItemProcessor processor;
+
+    @Autowired
+    public StudentItemWriter writer;
 
     @Bean
     public Job studentETLJob(StudentJobCompletionListener listener) {
@@ -52,8 +57,8 @@ public class StudentJobConfig {
         return stepBuilderFactory.get("extract-step")
                 .<Student, Student> chunk(10)
                 .reader(studentItemReader())
-                .processor(studentItemProcessor())
-                .writer(studentItemWritter())
+                .processor(processor)
+                .writer(writer)
                 .build();
     }
 
@@ -66,15 +71,5 @@ public class StudentJobConfig {
         databaseReader.setRowMapper(new BeanPropertyRowMapper<>(Student.class));
 
         return databaseReader;
-    }
-
-    @Bean
-    public StudentItemProcessor studentItemProcessor() {
-        return new StudentItemProcessor();
-    }
-
-    @Bean
-    public StudentItemWritter studentItemWritter() {
-        return new StudentItemWritter();
     }
 }
