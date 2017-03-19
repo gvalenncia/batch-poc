@@ -8,17 +8,17 @@ import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by gvalenncia on 3/18/17.
+ * Created by gvalenncia on 3/19/17.
  */
 @Component
-public class StudentJobCompletionListener extends JobExecutionListenerSupport {
+public class SubjectJobCompletionListener extends JobExecutionListenerSupport {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(StudentJobCompletionListener.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(SubjectJobCompletionListener.class);
 
     @Override
     public void afterJob(JobExecution jobExecution) {
         if(jobExecution.getStatus() == BatchStatus.COMPLETED) {
-            LOGGER.info("Finishing student etl job");
+            LOGGER.info("Finishing subject etl job");
         }
     }
 }
