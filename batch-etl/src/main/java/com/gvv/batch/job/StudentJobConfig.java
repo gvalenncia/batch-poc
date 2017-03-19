@@ -3,6 +3,7 @@ package com.gvv.batch.job;
 import com.gvv.batch.listener.StudentJobCompletionListener;
 import com.gvv.batch.model.Student;
 import com.gvv.batch.processor.StudentItemProcessor;
+import com.gvv.batch.writter.StudentItemWritter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -52,6 +53,7 @@ public class StudentJobConfig {
                 .<Student, Student> chunk(10)
                 .reader(studentItemReader())
                 .processor(studentItemProcessor())
+                .writer(studentItemWritter())
                 .build();
     }
 
@@ -69,5 +71,10 @@ public class StudentJobConfig {
     @Bean
     public StudentItemProcessor studentItemProcessor() {
         return new StudentItemProcessor();
+    }
+
+    @Bean
+    public StudentItemWritter studentItemWritter() {
+        return new StudentItemWritter();
     }
 }

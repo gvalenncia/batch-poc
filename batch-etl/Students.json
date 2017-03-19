@@ -1,0 +1,22 @@
+[
+  {
+    "student_id": "1",
+    "student_name": "german",
+    "student_lastname": "valencia"
+  },
+  {
+    "student_id": "2",
+    "student_name": "plinio",
+    "student_lastname": "gonzalez"
+  },
+  {
+    "student_id": "3",
+    "student_name": "zacarias",
+    "student_lastname": "piedras"
+  },
+  {
+    "student_id": "4",
+    "student_name": "rosa",
+    "student_lastname": null
+  }
+]
