@@ -16,6 +16,11 @@
 		<module>domain-model</module>
 	</modules>
 
+	<properties>
+		<mysql.version>5.1.21</mysql.version>
+		<jackson.version>2.4.4</jackson.version>
+	</properties>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -23,11 +28,12 @@
 				<artifactId>mysql-connector-java</artifactId>
 				<version>${mysql.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${jackson.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
-
-	<properties>
-		<mysql.version>5.1.21</mysql.version>
-	</properties>
 
 </project>
