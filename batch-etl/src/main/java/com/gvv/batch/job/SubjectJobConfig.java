@@ -1,9 +1,9 @@
 package com.gvv.batch.job;
 
-import com.gvv.batch.listener.StudentJobCompletionListener;
-import com.gvv.batch.model.Student;
-import com.gvv.batch.processor.StudentItemProcessor;
-import com.gvv.batch.writer.StudentItemWriter;
+import com.gvv.batch.listener.SubjectJobCompletionListener;
+import com.gvv.batch.model.Subject;
+import com.gvv.batch.processor.SubjectItemProcessor;
+import com.gvv.batch.writer.SubjectItemWriter;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -20,13 +20,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import javax.sql.DataSource;
 
 /**
- * Created by gvalenncia on 3/18/17.
+ * Created by gvalenncia on 3/19/17.
  */
 @Configuration
 @EnableBatchProcessing
-public class StudentJobConfig {
+public class SubjectJobConfig {
 
-    private static final String EXTRACT_STUDENTS_QUERY = "SELECT * FROM tbl_student";
+    private static final String EXTRACT_SUBJECT_QUERY = "SELECT * FROM tbl_subject";
 
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
@@ -38,14 +38,14 @@ public class StudentJobConfig {
     private DataSource dataSource;
 
     @Autowired
-    private StudentItemProcessor processor;
+    private SubjectItemProcessor processor;
 
     @Autowired
-    private StudentItemWriter writer;
+    private SubjectItemWriter writer;
 
-    @Bean(name = "StudentETLJobBean")
-    public Job studentETLJob(StudentJobCompletionListener listener) {
-        return jobBuilderFactory.get("student-etl-job")
+    @Bean(name = "SubjectETLJobBean")
+    public Job subjectETLJob(SubjectJobCompletionListener listener) {
+        return jobBuilderFactory.get("subject-etl-job")
                 .incrementer(new RunIdIncrementer())
                 .listener(listener)
                 .flow(extractStep())
@@ -53,24 +53,25 @@ public class StudentJobConfig {
                 .build();
     }
 
-    @Bean(name = "StudentETLExtractStepBean")
+    @Bean(name = "SubjectETLExtractStepBean")
     public Step extractStep() {
-        return stepBuilderFactory.get("student-etl-extract-step")
-                .<Student, Student> chunk(10)
-                .reader(studentItemReader())
+        return stepBuilderFactory.get("subject-etl-extract-step")
+                .<Subject, Subject> chunk(10)
+                .reader(subjectItemReader())
                 .processor(processor)
                 .writer(writer)
                 .build();
     }
 
-    @Bean(name = "StudentETLItemReaderBean")
-    public ItemReader<Student> studentItemReader() {
-        JdbcCursorItemReader<Student> databaseReader = new JdbcCursorItemReader<>();
+    @Bean(name = "SubjectETLItemReaderBean")
+    public ItemReader<? extends Subject> subjectItemReader() {
+        JdbcCursorItemReader<Subject> databaseReader = new JdbcCursorItemReader<>();
 
         databaseReader.setDataSource(dataSource);
-        databaseReader.setSql(EXTRACT_STUDENTS_QUERY);
-        databaseReader.setRowMapper(new BeanPropertyRowMapper<>(Student.class));
+        databaseReader.setSql(EXTRACT_SUBJECT_QUERY);
+        databaseReader.setRowMapper(new BeanPropertyRowMapper<>(Subject.class));
 
         return databaseReader;
     }
+
 }
