@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubjectItemProcessor implements ItemProcessor<Subject, Subject> {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(SubjectItemProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubjectItemProcessor.class);
 
     @Override
     public Subject process(Subject subject) throws Exception {

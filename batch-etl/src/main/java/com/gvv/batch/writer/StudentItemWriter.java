@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class StudentItemWriter implements ItemWriter<Student> {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(StudentItemWriter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StudentItemWriter.class);
 
     @Override
     public void write(List<? extends Student> students) throws Exception {

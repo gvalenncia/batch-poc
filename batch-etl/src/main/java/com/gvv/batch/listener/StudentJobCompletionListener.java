@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentJobCompletionListener extends JobExecutionListenerSupport {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(StudentJobCompletionListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(StudentJobCompletionListener.class);
 
     @Override
     public void afterJob(JobExecution jobExecution) {

@@ -9,4 +9,5 @@ logging:
     console: "%d %-5level %logger : %msg%n"
   level:
     ROOT: INFO
-
+scheduler:
+  cron: "0/20 * * * * ?"

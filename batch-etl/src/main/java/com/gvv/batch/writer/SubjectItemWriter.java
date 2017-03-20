@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class SubjectItemWriter implements ItemWriter<Subject> {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(SubjectItemWriter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SubjectItemWriter.class);
 
     @Override
     public void write(List<? extends Subject> subjects) throws Exception {

@@ -64,7 +64,7 @@ public class SubjectJobConfig {
     }
 
     @Bean(name = "SubjectETLItemReaderBean")
-    public ItemReader<? extends Subject> subjectItemReader() {
+    public ItemReader<Subject> subjectItemReader() {
         JdbcCursorItemReader<Subject> databaseReader = new JdbcCursorItemReader<>();
 
         databaseReader.setDataSource(dataSource);
