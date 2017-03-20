@@ -10,16 +10,18 @@ Install the following tools:
 * [Git](https://git-scm.com/)
 * [JDK 7](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase7-521261.html) (7u80)
 * [maven](https://maven.apache.org/download.cgi) (3.3.9)
+* [mysql](https://dev.mysql.com/downloads/) 
 
 From a terminal, clone and configure the repository in a local folder:
 
-`$ git clone https://github.com/gvalenncia/batch-poc.git`
+```
+$ git clone https://github.com/gvalenncia/batch-poc.git
+$ git config user.name "your name as it appears in github"
+$ git config user.email "your email name as registered in github"
 
-`$ git config user.name "your name as it appears in github"`
+```
 
-`$ git config user.email "your email name as registered in github"`
-
-## Building
+## Installing
 
 This is a *Spring Boot Application* split in two maven modules as follows:
 
@@ -37,20 +39,27 @@ This is a *Spring Boot Application* split in two maven modules as follows:
 
 ```
 
-Then, from batch-poc/ run:
+1. Run SQL scripts in the following order:
 
-`$ mvn clean package`
+* batch-etl/src/main/resources/sql/testa-schema.sql
+* batch-etl/src/main/resources/sql/testa-data.sql
 
-The above command builds under /batch-etl/target/, the application's binary distribution (`batch-etl-0.0.1-SNAPSHOT.jar`)
+2. Create the binary distribution running the following command from batch-poc/:
+
+* `$ mvn clean package install`
+
+3. The above command builds under /batch-etl/target/, the application's binary distribution (`batch-etl-0.0.1-SNAPSHOT.jar`)
 
 ## Running
 
 This app has been designed to run in different environments, also called "profiles" (dev, qa, prod), just by setting the parameter 
-`-Dspring.profiles.active` to the JVM.
-
-So the following example will run the app in "dev" environment
+`-Dspring.profiles.active` to the JVM. So the following example will run the app in "dev" environment
 
 * `$ java -jar -Dspring.profiles.active=dev batch-etl-0.0.1-SNAPSHOT.jar`
 
-WARNING: If you do not set the parameter `-Dspring.profiles.active`, it will run with the default profile, which is local.
+WARNING: If you do not set the parameter `-Dspring.profiles.active`, it will run with the default profile which is local,
+and this profile should be only used for developers.
 
+Alternatively, you can also use the maven spring-boot plugin tu run the application like this:
+
+* `$ spring-boot:run -Dspring.profiles.active=dev batch-etl-0.0.1-SNAPSHOT.jar`
