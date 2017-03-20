@@ -5,6 +5,7 @@ import com.gvv.batch.model.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +14,7 @@ import java.util.List;
 /**
  * Created by gvalenncia on 3/19/17.
  */
+@Component
 public class SubjectItemWriter implements ItemWriter<Subject> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(SubjectItemWriter.class);

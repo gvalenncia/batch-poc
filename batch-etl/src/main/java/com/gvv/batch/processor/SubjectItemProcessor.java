@@ -4,10 +4,12 @@ import com.gvv.batch.model.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by gvalenncia on 3/19/17.
  */
+@Component
 public class SubjectItemProcessor implements ItemProcessor<Subject, Subject> {
 
     private final Logger LOGGER = LoggerFactory.getLogger(SubjectItemProcessor.class);
